@@ -12,5 +12,11 @@ A fun project to learn Python and robot in general
 * Pololu Carrier with Sharp GP2Y0D815Z0F Digital Distance Sensor 15cm
 * Logitech C270
 
+## Installation
+Copy both files to desired folder
+
+## Usage
+Run the py script with an elevated privilage
+
 ## License
 This project is licensed under the MIT License
