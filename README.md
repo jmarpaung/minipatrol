@@ -5,7 +5,6 @@ Simple python script and html to control raspberry pi based robot
 A fun project to learn Python and robot in general
 
 ## The robot
-
 * Raspberry PI
 * Pololu dual motor driver DRV8833
 * Pololu Micro Maestro 6-Channel USB Servo Controller
@@ -13,4 +12,5 @@ A fun project to learn Python and robot in general
 * Pololu Carrier with Sharp GP2Y0D815Z0F Digital Distance Sensor 15cm
 * Logitech C270
 
-
+## License
+This project is licensed under the MIT License
