@@ -1,0 +1,347 @@
+<!-- 
+	Author: Jonathan Marpaung
+	Description: Simple html UI to control Minipatrol robot and display webcam stream
+	Purpose: To control MiniPatrol robot for OSU Mercury 2018 Competition
+	Version: 1.0
+	License: MIT License
+-->
+<script type="text/javascript">
+
+//This function is used to post the keystroke/button to the robot's raspberry pi
+function post_key(parm) 
+{
+
+	var xhr = new XMLHttpRequest();
+	var url = "localhost";
+	xhr.open("POST", url, true);
+
+	//Send header information with the post
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	xhr.onreadystatechange = function() 
+	{
+		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) 
+		{
+			// Post finished. All good here boss.
+		}
+	}
+	var sendstring = "k=" + parm; //form string
+	xhr.send(sendstring); //post string
+	
+	//Here we will post to the robot to get the sensor status
+	post_key_sensor();
+
+}
+
+//This function is used to retrieve sensor status
+function post_key_sensor() 
+{
+
+	var sensorcode = '';
+	var middlesensor = '';
+	var rightsensor = '';
+	var leftsensor = '';
+	var backsensor = '';
+	var xhr = new XMLHttpRequest();
+	var url = "localhost";
+	xhr.open("POST", url, true);
+
+	//Send header information with the post
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	xhr.onreadystatechange = function() 
+	{
+		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) 
+		{
+			// Post finished. Manipulate and display sensor data.
+			
+			sensorcode = readBody(xhr);
+			
+			middlesensor = sensorcode.substr(0,1);
+			sensor_status_middle(middlesensor);
+			
+			rightsensor = sensorcode.substr(1,1);
+			sensor_status_right(rightsensor);
+			
+			leftsensor = sensorcode.substr(2,1);
+			sensor_status_left(leftsensor);
+			
+			backsensor = sensorcode.substr(3,1);
+			sensor_status_back(backsensor);
+
+		}
+	}
+	
+	var sendstring = "k=0"; //form string
+	xhr.send(sendstring); //post string
+
+}
+
+//This function is used to get the character typed into the textbox and post it if it's valid
+function GetChar (event)
+{
+	var chCode = ('charCode' in event) ? event.charCode : event.keyCode;
+	
+	//notice that we can only move the robot motor using the textbox. Moving the arm/servos require the user to click the arm buttons
+	if (chCode == 119) 
+	{
+		post_key('w'); //forward
+    }
+	else if (chCode == 97) 
+	{
+		post_key('a'); //left
+	}
+	else if (chCode == 115) 
+	{
+		post_key('s'); //reverse
+	}
+	else if (chCode == 100) 
+	{
+		post_key('d'); //right
+	}
+	else if (chCode == 113) 
+	{
+		post_key('q'); //hard left
+	}
+	else if (chCode == 101) 
+	{
+		post_key('e'); //hard right
+	}
+	
+	
+}
+
+//This function is used to format the display for the front middle distance sensor
+//If the sensor does not detect any obstacle, it will display CLEAR with light-green background
+//If the sensor detects an obstacle, it will display BLOCKED with red background color
+function sensor_status_middle(sencode) 
+{
+	if (sencode == 1) 
+	{
+		var element = document.getElementById("id01");
+		element.innerHTML = "CLEAR";
+		element.style.backgroundColor = "lightgreen"; 
+    }
+	else
+	{
+		var element = document.getElementById("id01");
+		element.innerHTML = "BLOCKED";
+		element.style.backgroundColor = "red"; 
+	}
+
+}
+
+//This function is used to format the display for the front right distance sensor
+//If the sensor does not detect any obstacle, it will display CLEAR with light-green background
+//If the sensor detects an obstacle, it will display BLOCKED with red background color
+function sensor_status_right(sencode) 
+{
+
+	if (sencode == 1) 
+	{
+		var element = document.getElementById("id02");
+		element.innerHTML = "CLEAR";
+		element.style.backgroundColor = "lightgreen"; 
+    }
+	else
+	{
+		var element = document.getElementById("id02");
+		element.innerHTML = "BLOCKED";
+		element.style.backgroundColor = "red"; 
+	}
+
+}
+
+//This function is used to format the display for the front left distance sensor
+//If the sensor does not detect any obstacle, it will display CLEAR with light-green background
+//If the sensor detects an obstacle, it will display BLOCKED with red background color
+function sensor_status_left(sencode) 
+{
+
+	if (sencode == 1) 
+	{
+		var element = document.getElementById("id03");
+		element.innerHTML = "CLEAR";
+		element.style.backgroundColor = "lightgreen"; 
+    }
+	else
+	{
+		var element = document.getElementById("id03");
+		element.innerHTML = "BLOCKED";
+		element.style.backgroundColor = "red"; 
+	}
+
+}
+
+//This function is used to format the display for the rear middle distance sensor
+//If the sensor does not detect any obstacle, it will display CLEAR with light-green background
+//If the sensor detects an obstacle, it will display BLOCKED with red background color
+function sensor_status_back(sencode) 
+{
+
+	if (sencode == 1) 
+	{
+		var element = document.getElementById("id04");
+		element.innerHTML = "CLEAR";
+		element.style.backgroundColor = "lightgreen"; 
+    }
+	else
+	{
+		var element = document.getElementById("id04");
+		element.innerHTML = "BLOCKED";
+		element.style.backgroundColor = "red"; 
+	}
+
+}
+
+//This function is used to read the response from the robot on the status of the sensors
+function readBody(xhr) 
+{
+    var data;
+    if (!xhr.responseType || xhr.responseType === "text") 
+	{
+        data = xhr.responseText;
+    } else if (xhr.responseType === "document") 
+	{
+        data = xhr.responseXML;
+    } else 
+	{
+        data = xhr.response;
+    }
+    return data;
+}
+
+ </script>
+ 
+<style>
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col-"] {
+        width: 100%;
+    }
+}
+</style>
+
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <html>
+ <body>
+ 
+	<!-- you can use this for webcam stream. My robot served stream on port 8080 -->
+	<iframe src="http://localhost:8080/?action=stream" width="350" height="250"></iframe> 
+	
+	<br/>
+	<br/>
+	
+	<table border="1">
+		<tr>
+			<td width="100" align="center">
+				<p id="id03">CLEAR</p>
+			</td>
+			<td width="100" align="center">
+				<p id="id01">CLEAR</p>
+			</td>
+			<td width="100" align="center">
+				<p id="id02">CLEAR</p>
+			</td>
+		</tr>
+	</table>
+	
+	<br/>
+	
+	<!-- Control to move the robot around the track -->
+	<table border="1">
+		<tr>
+			<td width="100" align="center">
+				<button onclick="post_key('q');">HARD Left</button> 
+			</td>
+			<td width="100" align="center">
+				<button onclick="post_key('w');">Forward</button> 
+			</td>
+			<td width="100" align="center">
+				<button onclick="post_key('e');">HARD Right</button> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100" align="center">
+				<button onclick="post_key('a');">Left</button> 
+			</td>
+			<td width="100" align="center">
+				&nbsp;
+			</td>
+			<td width="100" align="center">
+				<button onclick="post_key('d');">Right</button> 
+			</td>
+		</tr>
+		<tr>
+			<td width="100" align="center">
+				&nbsp;
+			</td>
+			<td width="100" align="center">
+				<button onclick="post_key('s');">Reverse</button> 
+			</td>
+			<td width="100" align="center">
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+	
+	<br/>
+	
+	<!-- Control to move the arm -->
+	<table border="1">
+		<tr>
+			<td width="100" align="center">
+				<button onclick="post_key('l');">ARM UP</button> 
+			</td>
+			<td width="100" align="center">
+				<p id="id04">CLEAR</p>
+			</td>
+			<td width="100" align="center">
+				<button onclick="post_key('k');">ARM DOWN</button> 
+			</td>
+		</tr>
+	</table>
+	
+	<br/>
+	
+	<!-- Control to move the arm -->
+	<table border="1">
+		<tr>
+			<td width="100" align="center">
+				<button onclick="post_key('o');">RESET ARM</button> 
+			</td>
+			<td width="100" align="center">
+				<button onclick="post_key('p');">GRAB</button> 
+			</td>
+			<td width="100" align="center">
+				&nbsp;
+			</td>
+		</tr>
+	</table>
+	
+	<br/>
+	<br/>
+	
+	<!-- Textbox to control the robot movement by typing AWSD and QE -->
+	<input size="32" value="" placeholder="Type A W S D and Q E to run!" onkeypress="GetChar (event);"/>
+	
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+  
+</form> 
+<body>
+ <html>
