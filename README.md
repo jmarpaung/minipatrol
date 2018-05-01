@@ -14,7 +14,7 @@ There are two files in this repo. First is the index.html file and the other one
 ### index.html
 This is a simple UI that the driver can access using a web browser. An iframe at the top of the page can be used to hold webcam stream. The driver can control the robot movement by clicking on the buttons or typing into the textbox (WASD). The arm will be controlled by the buttons below the movement buttons.
 
-Sensor status is displayed on top and below the movement buttons. When the sensor doesn't detect an obstacle in front of it, it will show "CLEAR" with a light-green background. When the sensor detects and obstacle, it will show "BLOCKED" with a red background.
+Sensor status is displayed on top and below the movement buttons. When the sensor does not detect an obstacle in front of it, it will show "CLEAR" with a light-green background. When the sensor detects and obstacle, it will show "BLOCKED" with a red background.
 
 ### simpleraspberrypost.py
 This script:
@@ -35,7 +35,7 @@ This script:
 Copy both files to the desired folder
 
 ## Usage
-Run the py script with an elevated privilage
+Run the py script with an elevated privilege
 
 ## License
 This project is licensed under the MIT License
