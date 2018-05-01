@@ -24,12 +24,13 @@ This script:
 * Simple logic to avoid collision and auto-grab payload
 
 ## The robot
-* Raspberry PI
-* Pololu dual motor driver DRV8833
-* Pololu Micro Maestro 6-Channel USB Servo Controller
-* Pololu reflectance sensor QTR-1RC 
-* Pololu Carrier with Sharp GP2Y0D815Z0F Digital Distance Sensor 15cm
-* Logitech C270
+* Raspberry PI X 1
+* Pololu dual motor driver DRV8833 X 1
+* Pololu Micro Maestro 6-Channel USB Servo Controller X 1
+* Pololu reflectance sensor QTR-1RC X 1
+* Pololu Carrier with Sharp GP2Y0D815Z0F Digital Distance Sensor 15cm X 1
+* Pololu Carrier with Sharp GP2Y0D810Z0F Digital Distance Sensor 10cm X 3
+* Logitech C270 X 1
 * Chasis and motors: 4 wheels cheap hobbyist kit from Amazon
 
 ## Installation
