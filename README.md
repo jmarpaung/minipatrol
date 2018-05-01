@@ -4,6 +4,10 @@ Simple python script and html to control raspberry pi based robot
 ## Purposes
 A fun project to learn Python and robotics in general. In addition, to compete in 2018 Mercury robotics at OSU.
 
+## Prereq
+* You will need maestro.py to control the servos using pololu Micro Maestro 6-Channel USB Servo Controller. https://github.com/FRC4564/Maestro
+* Script to stream webcam/IPcam
+
 ## Description
 There are two files in this repo. First is the index.html file and the other one is simpleraspberrypost.py
 
@@ -13,7 +17,11 @@ This is a simple UI that the driver can access using a web browser. An iframe at
 Sensor status is displayed on top and below the movement buttons. When the sensor doesn't detect an obstacle in front of it, it will show "CLEAR" with a light-green background. When the sensor detects and obstacle, it will show "BLOCKED" with a red background.
 
 ### simpleraspberrypost.py
-
+This script:
+* Serve simple http server and process POST request
+* Process POST request to control robot's movement and arm
+* Return sensor status to UI
+* Simple logic to avoid collision and auto-grab payload
 
 ## The robot
 * Raspberry PI
@@ -24,7 +32,7 @@ Sensor status is displayed on top and below the movement buttons. When the senso
 * Logitech C270
 
 ## Installation
-Copy both files to desired folder
+Copy both files to the desired folder
 
 ## Usage
 Run the py script with an elevated privilage
