@@ -3,6 +3,7 @@ Simple python script and html to control raspberry pi based robot
 
 ## Purposes
 A fun project to learn Python and robotics in general. In addition, to compete in 2018 Mercury robotics at OSU.
+Hope you will find it useful in learning to build a simple robot.
 
 ## Prereq
 * You will need maestro.py to control the servos using pololu Micro Maestro 6-Channel USB Servo Controller. https://github.com/FRC4564/Maestro
