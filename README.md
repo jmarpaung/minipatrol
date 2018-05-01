@@ -30,6 +30,7 @@ This script:
 * Pololu reflectance sensor QTR-1RC 
 * Pololu Carrier with Sharp GP2Y0D815Z0F Digital Distance Sensor 15cm
 * Logitech C270
+* Chasis and motors: 4 wheels cheap hobbyist kit from Amazon
 
 ## Installation
 Copy both files to the desired folder
